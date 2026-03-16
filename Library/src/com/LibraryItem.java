@@ -38,8 +38,8 @@ public abstract class LibraryItem implements Borrowable {
     public void setBorrowCount(int count) { this.borrowCount = count; } // 📌 สำหรับโหลดไฟล์ CSV
 
     public void displayDetails() {
-        System.out.printf("[%s] %s - สถานะ: %s\n",
-                id, title, isAvailable ? "ว่าง" : "ยืมโดย " + borrowedBy.getName() + " (กำหนดคืน: " + dueDate + ")");
+        System.out.printf("[%s] %s - Status: %s\n",
+                id, title, isAvailable ? "Available" : "Borrowed by " + borrowedBy.getName() + " (due: " + dueDate + ")");
     }
 
     public abstract void displayDetails(boolean showFull);
@@ -52,18 +52,18 @@ public abstract class LibraryItem implements Borrowable {
                 this.isAvailable = false;
                 this.borrowedBy = member;
                 this.dueDate = LocalDate.now().plusDays(7);
-                this.borrowCount++; // 📌 บวกยอดประวัติการถูกยืม 1 ครั้ง
+                this.borrowCount++;
                 member.recordBorrow();
                 return true;
             } else {
-                System.out.println("❌ ยอดเงินไม่พอ! ขาดอีก " + (this.price - member.getBalance()) + " บาท");
+                System.out.println("❌ Insufficient balance! Short by ฿" + (this.price - member.getBalance()));
                 return false;
             }
         }
         if (!member.canBorrow()) {
-            System.out.println("❌ ยืมไม่ได้! คุณเป็นสมาชิกทั่วไปและยืมครบโควต้า 3 เล่มแล้ว");
+            System.out.println("❌ Cannot borrow! You are a regular member and have reached the 3-book limit");
         } else {
-            System.out.println("❌ หนังสือถูกยืมไปแล้ว");
+            System.out.println("❌ This book is already checked out");
         }
         return false;
     }

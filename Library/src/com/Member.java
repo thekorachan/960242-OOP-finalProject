@@ -24,7 +24,7 @@ public class Member {
 
     public void addBalance(double amount) {
         this.balance += amount;
-        System.out.println("💰 เติมเงินสำเร็จ! ยอดเงินคงเหลือ: " + this.balance + " บาท");
+        System.out.println("💰 Top-up successful! Balance: ฿" + this.balance);
     }
 
     public boolean deductBalance(double amount) {
@@ -38,7 +38,7 @@ public class Member {
     // เมธอดสำหรับหักค่าปรับ (ยอมให้เงินติดลบได้ หรือหักตามจริง)
     public void payFine(double amount) {
         this.balance -= amount;
-        System.out.println("💸 หักค่าปรับล่าช้า: " + amount + " บาท | ยอดเงินคงเหลือ: " + this.balance + " บาท");
+        System.out.println("💸 Late fine deducted: ฿" + amount + " | Balance: ฿" + this.balance);
     }
 
     // เช็คสิทธิ์การยืม: ถ้าเป็น Premium ให้ผ่านเลย ถ้าไม่เป็นต้องไม่เกิน Limit
@@ -51,10 +51,10 @@ public class Member {
     public void recordReturn() { if (borrowedCount > 0) borrowedCount--; }
 
     public void displayMember() {
-        String memberType = isPremium ? "👑 [VIP ยืมไม่อั้น]" : "👤 [ทั่วไป ยืมได้ 3 เล่ม]";
-        String limitText = isPremium ? "ไม่จำกัด" : String.valueOf(BORROW_LIMIT);
+        String memberType = isPremium ? "👑 [VIP Unlimited]" : "👤 [Regular (limit 3)]";
+        String limitText = isPremium ? "Unlimited" : String.valueOf(BORROW_LIMIT);
 
-        System.out.printf("%s %s (รหัส: %s) | ยอดเงิน: %.2f บาท | ยืมไปแล้ว: %d/%s เล่ม\n",
+        System.out.printf("%s %s (ID: %s) | Balance: ฿%.2f | Borrowed: %d/%s books\n",
                 memberType, name, id, balance, borrowedCount, limitText);
     }
 

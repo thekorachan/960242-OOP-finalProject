@@ -35,14 +35,14 @@ public class LibraryManager {
     }
 
     public void showAllItems() {
-        System.out.println("\n--- 📚 รายการหนังสือทั้งหมด ---");
+        System.out.println("\n--- 📚 All Library Items ---");
         for (LibraryItem item : itemList) {
             item.displayDetails(true);
         }
     }
 
     public void showAllMembers() {
-        System.out.println("\n--- 👥 รายชื่อสมาชิกทั้งหมด ---");
+        System.out.println("\n--- 👥 All Members ---");
         for (Member m : memberList) {
             m.displayMember();
         }
@@ -64,9 +64,9 @@ public class LibraryManager {
 
         if (!memberFile.exists() || !itemFile.exists()) {
             memberList.add(new Member("M01", "Pound", 500.0, 0, true));
-            memberList.add(new Member("M02", "Alice", 50.0, 0, false));
-            itemList.add(new PhysicalBook("B01", "Java 101", "Dr. Thama", 20.0, "A-12"));
-            itemList.add(new EBook("E01", "OOP Guide", "Hydra", 15.0, "dii.com/oop", 5.5));
+            memberList.add(new Member("M02", "Jirawat", 50.0, 0, false));
+            itemList.add(new PhysicalBook("B01", "Java 101", "Dr. Tama", 20.0, "A-12"));
+            itemList.add(new EBook("E01", "OOP Guide", "Kora", 15.0, "dii.camt.cmu.ac.th/oop", 5.5));
             return;
         }
 
@@ -79,7 +79,7 @@ public class LibraryManager {
                 }
             }
         } catch (Exception e) {
-            System.out.println("❌ โหลดไฟล์สมาชิกล้มเหลว");
+            System.out.println("❌ Failed to load member file");
         }
 
         try (BufferedReader br = new BufferedReader(new FileReader(itemFile))) {
@@ -109,7 +109,7 @@ public class LibraryManager {
                 }
             }
         } catch (Exception e) {
-            System.out.println("❌ โหลดไฟล์หนังสือล้มเหลว");
+            System.out.println("❌ Failed to load item file");
         }
     }
 }

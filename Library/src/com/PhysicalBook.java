@@ -19,9 +19,8 @@ public class PhysicalBook extends LibraryItem {
     public void displayDetails(boolean showFull) {
         if (showFull) {
             String dueStr = isAvailable ? "-" : dueDate.toString();
-            // 📌 เพิ่มการปริ้นท์ borrowCount
-            System.out.printf("📘 [Physical] รหัส: %s | เรื่อง: %s | ราคายืม: %.2f บ. | สถานะ: %s | กำหนดคืน: %s | 📈 ยอดถูกยืมสะสม: %d ครั้ง\n",
-                    id, title, price, isAvailable ? "ว่าง" : "ยืมแล้ว", dueStr, borrowCount);
+            System.out.printf("📘 [Physical] ID: %s | Title: %s | Borrow fee: ฿%.2f | Status: %s | Due date: %s | 📈 Total borrows: %d times\n",
+                    id, title, price, isAvailable ? "Available" : "Checked Out", dueStr, borrowCount);
         } else {
             super.displayDetails();
         }
