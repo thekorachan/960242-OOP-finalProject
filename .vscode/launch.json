@@ -1,0 +1,20 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "LibraryApp",
+            "request": "launch",
+            "mainClass": "com.LibraryApp",
+            "projectName": "960242-OOP-finalProject_f2fd30cb"
+        },
+        {
+            "type": "java",
+            "name": "Run LibraryApp",
+            "request": "launch",
+            "mainClass": "com.LibraryApp",
+            "vmArgs": "-Dfile.encoding=UTF-8 -Dstdout.encoding=UTF-8 -Dstderr.encoding=UTF-8",
+            "console": "integratedTerminal"
+        }
+    ]
+}

@@ -1,12 +1,15 @@
 package com;
 
+import java.io.PrintStream;
+import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 public class LibraryApp {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
+        System.setOut(new PrintStream(System.out, true, StandardCharsets.UTF_8));
         LibraryManager manager = new LibraryManager();
-        Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8);
         boolean running = true;
 
         System.out.println("=========================================");
