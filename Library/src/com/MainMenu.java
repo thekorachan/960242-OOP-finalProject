@@ -67,22 +67,24 @@ public class MainMenu extends BaseMenu {
     private void register() {
         while (true) {
             System.out.println("\n--- 📝 User Registration ---");
-            System.out.print("Set your Member ID (or 0 to back): ");
+            System.out.print("Set your Member ID (3 letters/numbers only or 0 to back): ");
 
             String mId = scanner.nextLine().trim();
 
-            // ✅ กด 0 = กลับ
+            // ✅ กลับเมนู
             if (mId.equals("0")) {
                 return;
             }
 
-            if (mId.isEmpty()) {
-                System.out.println("❌ ID cannot be empty!");
+            // ❌ format ผิด
+            if (!mId.matches("^[a-zA-Z0-9]{3}$")) {
+                System.out.println("❌ ID must be exactly 3 characters (letters or numbers only)!");
                 continue;
             }
 
+            // ❌ ซ้ำ
             if (manager.findMember(mId) != null) {
-                System.out.println("❌ ID already exists! Try again.");
+                System.out.println("❌ ID already exists! Try another.");
                 continue;
             }
 
@@ -92,7 +94,6 @@ public class MainMenu extends BaseMenu {
             manager.addMember(new Member(mId, mName, 0.0, 0, null));
 
             System.out.println("✅ Registration successful!");
-            System.out.println("💡 Please login to continue.");
             return;
         }
     }

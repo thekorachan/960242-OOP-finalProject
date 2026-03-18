@@ -41,6 +41,7 @@ public class AdminMenu extends BaseMenu {
                     System.err.println("");
                     addItem(); break;
                 case 5:
+                    manager.showAllItems();
                     System.out.print("Enter Item ID to delete: ");
                     if (manager.deleteItem(scanner.nextLine().trim())) System.out.println("✅ Item deleted.");
                     break;

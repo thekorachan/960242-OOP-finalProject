@@ -72,12 +72,28 @@ public class LibraryManager {
 
     public void showAllItems() {
         System.out.println("\n--- 📚 All Library Items ---");
-        for (LibraryItem item : itemList) item.displayDetails(true);
+
+        if (itemList.isEmpty()) {
+            System.out.println("❌ No items in the library.");
+            return;
+        }
+
+        for (LibraryItem item : itemList) {
+            item.displayDetails(true);
+        }
     }
 
     public void showAllMembers() {
         System.out.println("\n--- 👥 All Members ---");
-        for (Member m : memberList) m.displayMember();
+
+        if (memberList.isEmpty()) {
+            System.out.println("❌ No members found.");
+            return;
+        }
+
+        for (Member m : memberList) {
+            m.displayMember();
+        }
     }
 
     public void showReportUnreturned() {
@@ -165,41 +181,59 @@ public class LibraryManager {
             return;
         }
 
+        // 🔹 LOAD MEMBER
         try (BufferedReader br = new BufferedReader(new FileReader(memberFile))) {
-            br.readLine();
+            br.readLine(); // skip header
             String line;
             while ((line = br.readLine()) != null) {
-                String[] parts = line.split(",");
+                String[] parts = parseCSV(line);
                 if (parts.length >= 5) {
                     LocalDate exp = null;
-                    // 📌 ดักจับเผื่อไฟล์เก่าของคุณยังเก็บเป็น "true"/"false"
                     if (!parts[4].equals("null") && !parts[4].equals("false")) {
                         if (parts[4].equals("true")) {
-                            exp = LocalDate.now().plusMonths(1); // แก้บัคให้คนเก่าได้เป็น VIP 1 เดือน
+                            exp = LocalDate.now().plusMonths(1);
                         } else {
-                            exp = LocalDate.parse(parts[4]); // โหลดวันที่จากไฟล์
+                            exp = LocalDate.parse(parts[4]);
                         }
                     }
-                    memberList.add(new Member(parts[0], parts[1], Double.parseDouble(parts[2]), Integer.parseInt(parts[3]), exp));
+                    memberList.add(new Member(parts[0], parts[1],
+                            Double.parseDouble(parts[2]),
+                            Integer.parseInt(parts[3]), exp));
                 }
             }
         } catch (Exception e) { }
 
+        // 🔹 LOAD ITEM
         try (BufferedReader br = new BufferedReader(new FileReader(itemFile))) {
-            br.readLine();
+            br.readLine(); // skip header
             String line;
             while ((line = br.readLine()) != null) {
-                String[] parts = line.split(",");
+                String[] parts = parseCSV(line);
                 if (parts.length >= 9) {
                     LibraryItem item;
+
                     if (parts[0].equals("Physical")) {
-                        item = new PhysicalBook(parts[1], parts[2], parts[3], Double.parseDouble(parts[4]), parts[7]);
-                        if (!parts[8].equals("null")) item.setDueDate(LocalDate.parse(parts[8]));
-                        if (parts.length >= 10) item.setBorrowCount(Integer.parseInt(parts[9]));
+                        item = new PhysicalBook(parts[1], parts[2], parts[3],
+                                Double.parseDouble(parts[4]), parts[7]);
+
+                        if (!parts[9].equals("null")) {
+                            item.setDueDate(LocalDate.parse(parts[9]));
+                        }
+                        if (parts.length >= 11) {
+                            item.setBorrowCount(Integer.parseInt(parts[10]));
+                        }
+
                     } else {
-                        item = new EBook(parts[1], parts[2], parts[3], Double.parseDouble(parts[4]), parts[7], Double.parseDouble(parts[8]));
-                        if (parts.length >= 10 && !parts[9].equals("null")) item.setDueDate(LocalDate.parse(parts[9]));
-                        if (parts.length >= 11) item.setBorrowCount(Integer.parseInt(parts[10]));
+                        item = new EBook(parts[1], parts[2], parts[3],
+                                Double.parseDouble(parts[4]), parts[7],
+                                Double.parseDouble(parts[8]));
+
+                        if (!parts[9].equals("null")) {
+                            item.setDueDate(LocalDate.parse(parts[9]));
+                        }
+                        if (parts.length >= 11) {
+                            item.setBorrowCount(Integer.parseInt(parts[10]));
+                        }
                     }
 
                     if (parts[5].equals("false")) {
@@ -207,10 +241,19 @@ public class LibraryManager {
                         Member borrower = findMember(parts[6]);
                         if (borrower != null) item.setBorrowedBy(borrower);
                     }
+
                     itemList.add(item);
                 }
             }
         } catch (Exception e) { }
+
+        // ✅ ✅ ใส่ตรงนี้ (ท้ายสุด!!)
+        if (itemList.isEmpty()) {
+            System.out.println("⚠️ No items found. Resetting default books...");
+
+            itemList.add(new PhysicalBook("B01", "Java 101", "Dr. Thama", 20.0, "A-12"));
+            itemList.add(new EBook("E01", "OOP Guide", "Hydra", 15.0, "dii.com/oop", 5.5));
+        }
     }
 
 }
