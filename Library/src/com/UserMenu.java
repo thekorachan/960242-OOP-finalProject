@@ -23,7 +23,7 @@ public class UserMenu extends BaseMenu {
             System.out.println("6. Upgrade / Renew VIP");
             System.out.println("7. Logout to Main Menu");
 
-            int choice = getIntInput("👉 Select menu (1-7): ");
+            int choice = getIntInput("\n👉 Select menu (1-7): ");
 
             switch (choice) {
                 case 1: manager.showAllItems(); break;
@@ -33,10 +33,10 @@ public class UserMenu extends BaseMenu {
                     double topup;
 
                     while (true) {
-                        topup = getDoubleInput("Amount to top up (THB): ");
+                        topup = getDoubleInput("\nAmount to top up (THB): ");
 
                         if (topup <= 0) {
-                            System.out.println("❌ Amount must be greater than 0!");
+                            System.out.println("\n❌ Amount must be greater than 0!");
                             continue;
                         }
 
@@ -44,7 +44,7 @@ public class UserMenu extends BaseMenu {
                     }
 
                     user.addBalance(topup);
-                    System.out.println("✅ Top-up successful!");
+                    System.out.println("\n✅ Top-up successful!");
                     System.out.println("💰 Current balance: ฿" + user.getBalance());
                 case 5:
                     user.displayMember();
@@ -53,41 +53,41 @@ public class UserMenu extends BaseMenu {
                     break;
                 case 6: upgradeVip(); break;
                 case 7: running = false; break;
-                default: System.out.println("⚠️ Please select between 1-7 only.");
+                default: System.out.println("\n⚠️ Please select between 1-7 only.");
             }
         }
     }
 
     private void borrowBook() {
-        System.out.print("Enter Book ID to borrow: ");
+        System.out.print("\nEnter Book ID to borrow: ");
         String id = scanner.nextLine().trim();
 
         if (id.isEmpty()) {
-            System.out.println("❌ Book ID cannot be empty!");
+            System.out.println("\n❌ Book ID cannot be empty!");
             return;
         }
 
         LibraryItem item = manager.findItem(id);
 
         if (item == null) {
-            System.out.println("❌ Book ID not found.");
+            System.out.println("\n❌ Book ID not found.");
             return;
         }
 
         if (!item.isAvailable()) {
-            System.out.println("❌ This book is already borrowed.");
+            System.out.println("\n❌ This book is already borrowed.");
             return;
         }
 
         if (item.borrowItem(user)) {
-            System.out.println("✅ Borrowed successfully! Charged ฿" + item.getPrice());
+            System.out.println("\n✅ Borrowed successfully! Charged ฿" + item.getPrice());
             System.out.println("📅 Due date: " + item.getDueDate());
         }
     }
 
     private void returnBooks() {
         if (user.getBorrowedItems().isEmpty()) {
-            System.out.println("✅ You have no books to return.");
+            System.out.println("\n✅ You have no books to return.");
             return;
         }
 
@@ -98,7 +98,7 @@ public class UserMenu extends BaseMenu {
         String input = scanner.nextLine().trim();
 
         if (input.isEmpty()) {
-            System.out.println("❌ Input cannot be empty!");
+            System.out.println("\n❌ Input cannot be empty!");
             return;
         }
 
@@ -112,9 +112,9 @@ public class UserMenu extends BaseMenu {
 
                 int lateDays;
                 while (true) {
-                    lateDays = getIntInput("How many days late? (0 if on time): ");
+                    lateDays = getIntInput("\nHow many days late? (0 if on time): ");
                     if (lateDays < 0) {
-                        System.out.println("❌ Late days cannot be negative!");
+                        System.out.println("\n❌ Late days cannot be negative!");
                         continue;
                     }
                     break;
@@ -124,17 +124,17 @@ public class UserMenu extends BaseMenu {
 
                 if (fine > 0) {
                     if (!user.deductBalance(fine)) {
-                        System.out.println("❌ Not enough balance to pay fine!");
+                        System.out.println("\n❌ Not enough balance to pay fine!");
                         continue;
                     }
-                    System.out.println("💸 Fine paid: ฿" + fine);
+                    System.out.println("\n💸 Fine paid: ฿" + fine);
                 }
 
                 item.returnItem();
-                System.out.println("✅ Book returned successfully!");
+                System.out.println("\n✅ Book returned successfully!");
 
             } else {
-                System.out.println("❌ You didn't borrow this book or ID is incorrect.");
+                System.out.println("\n❌ You didn't borrow this book or ID is incorrect.");
             }
         }
     }
@@ -153,14 +153,14 @@ public class UserMenu extends BaseMenu {
             choice = getIntInput("👉 Choose plan (1-3): ");
 
             if (choice < 1 || choice > 3) {
-                System.out.println("❌ Invalid choice! Please select 1-3.");
+                System.out.println("\n❌ Invalid choice! Please select 1-3.");
                 continue;
             }
             break;
         }
 
         if (choice == 3) {
-            System.out.println("↩️ Cancelled.");
+            System.out.println("\n↩️ Cancelled.");
             return;
         }
 
@@ -168,15 +168,15 @@ public class UserMenu extends BaseMenu {
 
         // 🔥 เช็คเงิน
         if (!user.deductBalance(cost)) {
-            System.out.println("❌ Insufficient Wallet balance! Please top up first.");
+            System.out.println("\n❌ Insufficient Wallet balance! Please top up first.");
             return;
         }
 
         // 🔥 อัป VIP
         user.applyVip(choice == 1 ? 1 : 12);
 
-        System.out.println("✅ VIP upgraded successfully!");
-        System.out.println("💰 Remaining balance: ฿" + user.getBalance());
-        System.out.println("📅 New expiry: " + user.getVipExpiryDate());
+        System.out.println("\n✅ VIP upgraded successfully!");
+        System.out.println("\n💰 Remaining balance: ฿" + user.getBalance());
+        System.out.println("\n📅 New expiry: " + user.getVipExpiryDate());
     }
 }

@@ -21,7 +21,7 @@ public class MainMenu extends BaseMenu {
             System.out.println("2. Register (สมัครสมาชิกใหม่)");
             System.out.println("3. Exit (ออกจากระบบ)");
 
-            int choice = getIntInput("👉 Select menu (1-3): ");
+            int choice = getIntInput("\n👉 Select menu (1-3): ");
 
             if (choice == 1) {
                 login();
@@ -29,10 +29,10 @@ public class MainMenu extends BaseMenu {
                 register();
             } else if (choice == 3) {
                 manager.saveData();
-                System.out.println("💾 Data saved. Goodbye!");
+                System.out.println("\n💾 Data saved. Goodbye!");
                 running = false;
             } else {
-                System.out.println("⚠️ Please select between 1-3 only.");
+                System.out.println("\n⚠️ Please select between 1-3 only.");
             }
         }
     }
@@ -40,7 +40,7 @@ public class MainMenu extends BaseMenu {
     private void login() {
         while (true) {
             System.out.println("\n--- 🔐 Login System ---");
-            System.out.print("👉 Enter Member ID (Type 'admin' or 0 to back): ");
+            System.out.print("\n👉 Enter Member ID (Type 'admin' or 0 to back): ");
 
             String loginId = scanner.nextLine().trim();
 
@@ -59,7 +59,7 @@ public class MainMenu extends BaseMenu {
                 new UserMenu(manager, scanner, user).run();
                 return;
             } else {
-                System.out.println("❌ User ID not found! Try again.");
+                System.out.println("\n❌ User ID not found! Try again.");
             }
         }
     }
@@ -67,7 +67,7 @@ public class MainMenu extends BaseMenu {
     private void register() {
         while (true) {
             System.out.println("\n--- 📝 User Registration ---");
-            System.out.print("Set your Member ID (3 letters/numbers only or 0 to back): ");
+            System.out.print("\n👉 Set your Member ID (3 letters/numbers only or 0 to back): ");
 
             String mId = scanner.nextLine().trim();
 
@@ -78,22 +78,22 @@ public class MainMenu extends BaseMenu {
 
             // ❌ format ผิด
             if (!mId.matches("^[a-zA-Z0-9]{3}$")) {
-                System.out.println("❌ ID must be exactly 3 characters (letters or numbers only)!");
+                System.out.println("\n❌ ID must be exactly 3 characters (letters or numbers only)!❌");
                 continue;
             }
 
             // ❌ ซ้ำ
             if (manager.findMember(mId) != null) {
-                System.out.println("❌ ID already exists! Try another.");
+                System.out.println("\n❌ ID already exists! Try another.❌");
                 continue;
             }
 
-            System.out.print("Your Name: ");
+            System.out.print("\nYour Name: ");
             String mName = scanner.nextLine().trim();
 
             manager.addMember(new Member(mId, mName, 0.0, 0, null));
 
-            System.out.println("✅ Registration successful!");
+            System.out.println("\n✅ Registration successful!");
             return;
         }
     }

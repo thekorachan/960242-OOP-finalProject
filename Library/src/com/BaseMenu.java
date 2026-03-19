@@ -17,7 +17,7 @@ public abstract class BaseMenu implements Menu {
             try {
                 return Integer.parseInt(scanner.nextLine().trim());
             } catch (NumberFormatException e) {
-                System.out.println("❌ Error: Please enter a valid integer number!");
+                System.out.println("\n❌ Error: Please enter a valid integer number!❌");
             }
         }
     }
@@ -28,7 +28,7 @@ public abstract class BaseMenu implements Menu {
             try {
                 return Double.parseDouble(scanner.nextLine().trim());
             } catch (NumberFormatException e) {
-                System.out.println("❌ Error: Please enter a valid decimal number!");
+                System.out.println("\n❌ Error: Please enter a valid decimal number!❌");
             }
         }
     }

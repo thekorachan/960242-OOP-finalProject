@@ -67,14 +67,14 @@ public abstract class LibraryItem implements Borrowable {
                 member.recordBorrow();
                 return true;
             } else {
-                System.out.println("❌ Insufficient balance! Short by ฿" + (this.price - member.getBalance()));
+                System.out.println("\n❌ Insufficient balance! Short by ฿" + (this.price - member.getBalance()));
                 return false;
             }
         }
         if (!member.canBorrow()) {
-            System.out.println("❌ Cannot borrow! You are a regular member and have reached the 3-book limit");
+            System.out.println("\n❌ Cannot borrow! You are a regular member and have reached the 3-book limit");
         } else {
-            System.out.println("❌ This book is already checked out");
+            System.out.println("\n❌ This book is already checked out");
         }
         return false;
     }

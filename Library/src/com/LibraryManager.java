@@ -36,7 +36,7 @@ public class LibraryManager {
                 memberList.remove(m);
                 return true;
             } else {
-                System.out.println("❌ Cannot delete! This member has unreturned books.");
+                System.out.println("\n❌ Cannot delete! This member has unreturned books.");
                 return false;
             }
         }
@@ -50,7 +50,7 @@ public class LibraryManager {
                 itemList.remove(item);
                 return true;
             } else {
-                System.out.println("❌ Cannot delete! This item is currently checked out.");
+                System.out.println("\n❌ Cannot delete! This item is currently checked out.");
                 return false;
             }
         }
@@ -74,7 +74,7 @@ public class LibraryManager {
         System.out.println("\n--- 📚 All Library Items ---");
 
         if (itemList.isEmpty()) {
-            System.out.println("❌ No items in the library.");
+            System.out.println("\n❌ No items in the library.");
             return;
         }
 
@@ -87,7 +87,7 @@ public class LibraryManager {
         System.out.println("\n--- 👥 All Members ---");
 
         if (memberList.isEmpty()) {
-            System.out.println("❌ No members found.");
+            System.out.println("\n❌ No members found.");
             return;
         }
 
@@ -106,7 +106,7 @@ public class LibraryManager {
                 found = true;
             }
         }
-        if (!found) System.out.println("✅ No items currently checked out.");
+        if (!found) System.out.println("\n✅ No items currently checked out.");
     }
 
     public void showReportMostBorrowed() {
@@ -121,7 +121,7 @@ public class LibraryManager {
                 if (rank > 3) break;
             }
         }
-        if (rank == 1) System.out.println("📉 No borrowing history yet.");
+        if (rank == 1) System.out.println("\n📉 No borrowing history yet.");
     }
         private String[] parseCSV(String line) {
         ArrayList<String> result = new ArrayList<>();
@@ -165,7 +165,7 @@ public class LibraryManager {
             
 
         } catch (Exception e) {
-            System.out.println("❌ Error saving data.");
+            System.out.println("\n❌ Error saving data.");
         }
     }
 
@@ -249,8 +249,6 @@ public class LibraryManager {
 
         // ✅ ✅ ใส่ตรงนี้ (ท้ายสุด!!)
         if (itemList.isEmpty()) {
-            System.out.println("⚠️ No items found. Resetting default books...");
-
             itemList.add(new PhysicalBook("B01", "Java 101", "Dr. Thama", 20.0, "A-12"));
             itemList.add(new EBook("E01", "OOP Guide", "Hydra", 15.0, "dii.com/oop", 5.5));
         }

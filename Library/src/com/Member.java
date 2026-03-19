@@ -46,12 +46,12 @@ public class Member {
         } else {
             this.vipExpiryDate = LocalDate.now().plusMonths(months);
         }
-        System.out.println("🎉 VIP applied! New expiry date: " + this.vipExpiryDate);
+        System.out.println("\n🎉 VIP applied! New expiry date: " + this.vipExpiryDate);
     }
 
     public void addBalance(double amount) {
         this.balance += amount;
-        System.out.println("💰 Top-up successful! Balance: ฿" + this.balance);
+        System.out.println("\n💰 Top-up successful! Balance: ฿" + this.balance);
     }
 
     public boolean deductBalance(double amount) {
@@ -64,7 +64,7 @@ public class Member {
 
     public void payFine(double amount) {
         this.balance -= amount;
-        System.out.println("💸 Late fine deducted: ฿" + amount + " | Balance: ฿" + this.balance);
+        System.out.println("\n💸 Late fine deducted: ฿" + amount + " | Balance: ฿" + this.balance);
     }
 
     public void addBorrowedItem(LibraryItem item) {
@@ -85,7 +85,7 @@ public class Member {
 
     public void showBorrowedBooks() {
         if (borrowedItems.isEmpty()) {
-            System.out.println("- No books currently borrowed -");
+            System.out.println("\n- No books currently borrowed -");
             return;
         }
         for (LibraryItem item : borrowedItems) {
