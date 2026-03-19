@@ -27,9 +27,12 @@ public class AdminMenu extends BaseMenu {
 
             switch (choice) {
                 case 1: manager.showAllMembers(); break;
-                case 2: 
-                    editVipStatus(); 
-                    manager.showAllMembers();break;
+                case 2:
+                    manager.showAllMembers();
+                    System.out.println("");
+                    editVipStatus();
+                    manager.showAllMembers();
+                    break;
                 case 3:
                     System.out.print("\n👉 Enter Member ID to delete: ");
                     if (manager.deleteMember(scanner.nextLine().trim())) System.out.println("\n✅ Member deleted.");

@@ -1,1 +1,3 @@
 Type,ID,Title,Author,Price,Available,BorrowerID,Extra,Extra2,DueDate,BorrowCount
+EBook,E01,OOP Guide,Hydra,15.0,false,M01,dii.com/oop,5.5,2026-03-26,1
+Physical,P01,HTML,AJ,100.0,true,none,a12,null,null,1

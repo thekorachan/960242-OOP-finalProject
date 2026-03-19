@@ -14,7 +14,6 @@ public class LibraryApp {
             new MainMenu(manager, scanner).run();
         }
 
-        // ✅ เพิ่มตรงนี้
         manager.saveData();
     }
 }
